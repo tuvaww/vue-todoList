@@ -1,19 +1,28 @@
 <template>
   <section v-if="isShown" class="modalContainer">
     <article class="modalLayer">
-      <Modal :closeModalButton="isShown" @modalFunction="closeModal" />
+      <Modal
+        :todoToModal="clickedTodo"
+        :closeModalButton="isShown"
+        @modalFunction="closeModal"
+      />
     </article>
   </section>
 
   <article class="allTodosContainer">
-    <h3>What to do:</h3>
+    <p class="urTodosHeader">All your Todos:</p>
 
     <div class="todoList">
-      <ul v-if="listOfTodos.length > 0">
-        <li v-for="t in listOfTodos" :key="t.id" @click="showModal(t)">
+      <ol v-if="listOfTodos.length > 0">
+        <li
+          class="todoItem"
+          v-for="t in listOfTodos"
+          :key="t.id"
+          @click="showModal(t)"
+        >
           {{ t.title }}
         </li>
-      </ul>
+      </ol>
       <div class="noTodos" v-else>
         <h4>Start with creating a Todo</h4>
       </div>
@@ -35,15 +44,11 @@ export default class AllTodos extends Vue {
   @Prop() listOfTodos!: Todo[];
   modalContainer = "";
   isShown = false;
-
   clickedTodo!: Todo;
 
   showModal(todo: Todo) {
     this.isShown = !this.isShown;
-    console.log("is shown", this.isShown);
-    console.log("params todo", todo);
-    //this.clickedTodo = todo;
-    // console.log("clicked todo", this.clickedTodo);
+    this.clickedTodo = todo;
   }
 
   closeModal() {
@@ -53,6 +58,8 @@ export default class AllTodos extends Vue {
 </script>
 
 <style scoped lang="scss">
+@import "@/scss/_mixins.scss";
+
 .modalContainer {
   width: 100vw;
   height: 100vh;
@@ -75,5 +82,24 @@ export default class AllTodos extends Vue {
   align-items: center;
   gap: 20px;
   padding-top: 10px;
+
+  @include tablet {
+    grid-row-start: secondR;
+    grid-column-start: fourthC;
+  }
+
+  @include desktop {
+    grid-row-start: secondR;
+    grid-column-start: sixtC;
+  }
+
+  .urTodosHeader {
+    font-size: 16pt;
+  }
+}
+
+.todoItem {
+  cursor: pointer;
+  font-size: 14pt;
 }
 </style>
