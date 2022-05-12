@@ -1,27 +1,30 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <main class="mainContainer">
+    <Collector />
+  </main>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import HelloWorld from "./components/HelloWorld.vue";
+import Collector from "./components/Collector.vue";
 
 @Options({
   components: {
-    HelloWorld,
+    Collector,
   },
 })
 export default class App extends Vue {}
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+* {
+  padding: 0;
+  margin: 0;
+  .mainContainer {
+    background-image: url("@/images/post-it7.jpeg");
+    background-repeat: repeat;
+    width: 100vw;
+    // height: 100vh;
+  }
 }
 </style>
